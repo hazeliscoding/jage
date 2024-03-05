@@ -1,4 +1,3 @@
-MAJOR = 0
-MINOR = 1
+import globals
 
-print("jage tools - v{}.{}".format(MAJOR, MINOR))
+print("jage tools - v{}.{}".format(globals.V_MAJOR, globals.V_MINOR))
