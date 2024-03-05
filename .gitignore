@@ -12,6 +12,7 @@ logs/
 *.vcxproj*
 *.sln
 *Makefile
+*.pyc
 
 # Other
 node_modules/
