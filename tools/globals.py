@@ -1,3 +1,7 @@
+ENGINE_NAME = "jage"
+PROJECT_NAME = "jageeditor"
+TOOLS_DIR = "tools"
+
 V_MINOR = 1
 V_MAJOR = 0
 

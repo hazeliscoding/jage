@@ -3,6 +3,7 @@
 .vscode/
 bin*/
 logs/
+Debug/
 
 # Files
 *.user
@@ -14,5 +15,11 @@ logs/
 *Makefile
 *.pyc
 
+# Allow list
+!premake5.exe
+!*.dll
+!*.lib
+
 # Other
 node_modules/
+
