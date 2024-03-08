@@ -6,6 +6,8 @@ int main()
 {
     std::cout << "Hello, World!" << std::endl;
 
+    jage::GetInfo();
+
     int a = jage::Add(5, 3);
     int b = jage::Sub(5, 3);
 

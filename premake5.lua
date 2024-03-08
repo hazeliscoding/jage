@@ -38,6 +38,49 @@ project "jage"
         "FatalWarnings"
     }
 
+    filter {"system:windows", "configurations:*"}
+        systemversion "latest"
+
+        defines
+        {
+            "JAGE_PLATFORM_WINDOWS"
+        }
+    
+    filter {"system:macosx", "configurations:*"}
+        xcodebuildsettings
+        {
+            ["MACOSX_DEPLOYMENT_TARGET"] = "10.15",
+            ["UseModernBuildSystem"] = "NO"
+        }
+
+        defines
+        {
+            "JAGE_PLATFORM_MACOS"
+        }
+
+    filter {"system:linux", "configurations:*"}
+        defines
+        {
+            "JAGE_PLATFORM_LINUX"
+        }
+
+    filter "configurations:Debug"
+        defines
+        {
+            "JAGE_DEBUG"
+        }
+        runtime "Debug"
+        symbols "on"
+
+    filter "configurations:Release"
+        defines
+        {
+            "JAGE_RELEASE"
+        }
+        runtime "Release"
+        symbols "off"
+        optimize "on"
+
 project "jageeditor"
     location "jageeditor"
     kind "ConsoleApp"
@@ -64,3 +107,46 @@ project "jageeditor"
     {
         "FatalWarnings"
     }
+
+    filter {"system:windows", "configurations:*"}
+        systemversion "latest"
+
+        defines
+        {
+            "JAGE_PLATFORM_WINDOWS"
+        }
+
+    filter {"system:macosx", "configurations:*"}
+        xcodebuildsettings
+        {
+            ["MACOSX_DEPLOYMENT_TARGET"] = "10.15",
+            ["UseModernBuildSystem"] = "NO"
+        }
+
+        defines
+        {
+            "JAGE_PLATFORM_MACOS"
+        }
+
+    filter {"system:linux", "configurations:*"}
+        defines
+        {
+            "JAGE_PLATFORM_LINUX"
+        }
+
+    filter "configurations:Debug"
+        defines
+        {
+            "JAGE_DEBUG"
+        }
+        runtime "Debug"
+        symbols "on"
+
+    filter "configurations:Release"
+        defines
+        {
+            "JAGE_RELEASE"
+        }
+        runtime "Release"
+        symbols "off"
+        optimize "on"
