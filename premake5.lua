@@ -11,11 +11,40 @@ workspace "jage"
 tdir = "bin/%{cfg.buildcfg}/%{prj.name}"
 odir = "bin-obj/%{cfg.buildcfg}/%{prj.name}"
 
+project "jage"
+    location "jage"
+    kind "StaticLib"
+    language "C++"
+    cppdialect "C++17"
+    staticruntime "on"
+
+    targetdir(tdir)
+    objdir(odir)
+
+    files
+    {
+        "%{prj.name}/include/**.h",
+        "%{prj.name}/src/**.h",
+        "%{prj.name}/src/**.cpp"
+    }
+
+    externalincludedirs
+    {
+        "%{prj.name}/include"
+    }
+
+    flags
+    {
+        "FatalWarnings"
+    }
+
 project "jageeditor"
     location "jageeditor"
     kind "ConsoleApp"
     language "C++"
     cppdialect "C++17"
+    staticruntime "on"
+    links "jage"
 
     targetdir(tdir)
     objdir(odir)
@@ -24,6 +53,11 @@ project "jageeditor"
     {
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp"
+    }
+
+    externalincludedirs
+    {
+        "jage/include"
     }
 
     flags
