@@ -67,7 +67,7 @@ project "jage"
     filter "configurations:Debug"
         defines
         {
-            "JAGE_DEBUG"
+            "JAGE_CONFIG_DEBUG"
         }
         runtime "Debug"
         symbols "on"
@@ -75,7 +75,7 @@ project "jage"
     filter "configurations:Release"
         defines
         {
-            "JAGE_RELEASE"
+            "JAGE_CONFIG_RELEASE"
         }
         runtime "Release"
         symbols "off"
@@ -137,7 +137,7 @@ project "jageeditor"
     filter "configurations:Debug"
         defines
         {
-            "JAGE_DEBUG"
+            "JAGE_CONFIG_DEBUG"
         }
         runtime "Debug"
         symbols "on"
@@ -145,7 +145,7 @@ project "jageeditor"
     filter "configurations:Release"
         defines
         {
-            "JAGE_RELEASE"
+            "JAGE_CONFIG_RELEASE"
         }
         runtime "Release"
         symbols "off"
