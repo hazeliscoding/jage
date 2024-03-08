@@ -1,4 +1,5 @@
 #include "core/window.h"
+#include "engine.h"
 
 #include <iostream>
 
@@ -48,10 +49,13 @@ namespace jage::core
 		SDL_Event e;
 		while (SDL_PollEvent(&e))
 		{
-			if (e.type == SDL_QUIT)
+			switch (e.type)
 			{
-				SDL_Quit();
-				exit(0);
+				case SDL_QUIT:
+					Engine::instance().Quit();
+					break;
+				default:
+					break;
 			}
 		}
 	}

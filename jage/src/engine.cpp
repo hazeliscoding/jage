@@ -9,6 +9,7 @@ namespace jage
     Engine* Engine::instance_ = nullptr;
 
     Engine::Engine()
+	    : isRunning_(false)
     {
 		GetInfo();
     }
@@ -47,7 +48,7 @@ namespace jage
         if (Initialize())
         {
             // Core loop
-            while (true)
+            while (isRunning_)
             {
                 window_.PollEvents();
             }
@@ -58,12 +59,11 @@ namespace jage
 
     bool Engine::Initialize()
     {
-        bool ret = true;
+        bool ret = false;
 
 		if (SDL_Init(SDL_INIT_VIDEO) != 0)
 		{
 			std::cerr << "Failed to Initialize SDL2: " << SDL_GetError() << '\n';
-            ret = false;
 		}
         else
         {
@@ -72,9 +72,10 @@ namespace jage
             std::cout << "SDL2 version: " << static_cast<int>(version.major) << '.' << static_cast<int>(version.minor) << '.' << static_cast<int>(version.patch) <<
                 '\n';
 
-            if (!window_.Create())
+            if (window_.Create())
             {
-				ret = false;
+                ret = true;
+                isRunning_ = true;
 			}
         }
 
