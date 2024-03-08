@@ -151,6 +151,12 @@ project "jageeditor"
             "JAGE_PLATFORM_LINUX"
         }
 
+        links 
+        {
+            "SDL2",
+            "SDL2main"
+        }
+
     filter "configurations:Debug"
         defines
         {
