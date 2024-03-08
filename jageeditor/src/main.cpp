@@ -1,11 +1,14 @@
-#include <iostream>
-
 #include "jage/engine.h"
 
 int main()
 {
     jage::Engine& engine = jage::Engine::instance();
-    engine.Initialize();
+    if (engine.Initialize())
+    {
+        while (true)
+        {
+		}
+    }
     engine.Shutdown();
 
     return 0;

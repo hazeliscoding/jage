@@ -1,5 +1,7 @@
 #pragma once
 
+#include "core/window.h"
+
 namespace jage
 {
     class Engine
@@ -9,10 +11,13 @@ namespace jage
 
         ~Engine() = default;
 
-        bool Initialize();
+        [[nodiscard]] bool Initialize();
         void Shutdown();
     private:
         void GetInfo();
+
+    private:
+        core::Window window_;
 
         Engine();
 

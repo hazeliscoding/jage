@@ -54,9 +54,14 @@ namespace jage
         else
         {
             SDL_version version;
-            SDL_VERSION(&version);
+            SDL_VERSION(&version)
             std::cout << "SDL2 version: " << static_cast<int>(version.major) << '.' << static_cast<int>(version.minor) << '.' << static_cast<int>(version.patch) <<
                 '\n';
+
+            if (!window_.Create())
+            {
+				ret = false;
+			}
         }
 
 		return ret;
@@ -64,6 +69,7 @@ namespace jage
 
     void Engine::Shutdown()
     {
+        window_.Shutdown();
 	    SDL_Quit();
     }
 
