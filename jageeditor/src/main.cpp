@@ -4,15 +4,14 @@
 
 int main()
 {
-    std::cout << "Hello, World!" << std::endl;
-
     jage::GetInfo();
 
-    int a = jage::Add(5, 3);
-    int b = jage::Sub(5, 3);
+    jage::Initialize();
+    jage::Shutdown();
 
-    std::cout << "5 + 3 = " << a << std::endl;
-    std::cout << "5 - 3 = " << b << std::endl;
+#ifdef JAGE_PLATFORM_WINDOWS
+    system("pause");
+#endif
 
     return 0;
 }
