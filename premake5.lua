@@ -30,7 +30,7 @@ project "jage"
 
     externalincludedirs
     {
-        "%{prj.name}/include"
+        "%{prj.name}/include/jage"
     }
 
     flags
