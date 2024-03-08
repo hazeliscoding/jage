@@ -11,6 +11,11 @@ workspace "jage"
 tdir = "bin/%{cfg.buildcfg}/%{prj.name}"
 odir = "bin-obj/%{cfg.buildcfg}/%{prj.name}"
 
+-- External dependencies
+externals = {}
+externals["sdl2"] = "external/sdl2"
+
+
 project "jage"
     location "jage"
     kind "StaticLib"
@@ -30,7 +35,8 @@ project "jage"
 
     externalincludedirs
     {
-        "%{prj.name}/include/jage"
+        "%{prj.name}/include/jage",
+        "%{externals.sdl2}/include"
     }
 
     flags
@@ -114,6 +120,17 @@ project "jageeditor"
         defines
         {
             "JAGE_PLATFORM_WINDOWS"
+        }
+
+        libdirs
+        {
+            "%{externals.sdl2}/lib"
+        }
+
+        links
+        {
+            "SDL2",
+            "SDL2main"
         }
 
     filter {"system:macosx", "configurations:*"}
