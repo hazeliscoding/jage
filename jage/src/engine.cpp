@@ -42,6 +42,20 @@ namespace jage
 #endif
     }
 
+    void Engine::Run()
+    {
+        if (Initialize())
+        {
+            // Core loop
+            while (true)
+            {
+                window_.PollEvents();
+            }
+        }
+
+		Shutdown();
+    }
+
     bool Engine::Initialize()
     {
         bool ret = true;
@@ -62,6 +76,12 @@ namespace jage
             {
 				ret = false;
 			}
+        }
+
+        if (!ret)
+        {
+	        std::cerr << "Failed to initialize engine. Shutting down..." << '\n';
+            Shutdown();
         }
 
 		return ret;

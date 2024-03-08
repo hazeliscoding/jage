@@ -3,13 +3,7 @@
 int main()
 {
     jage::Engine& engine = jage::Engine::instance();
-    if (engine.Initialize())
-    {
-        while (true)
-        {
-		}
-    }
-    engine.Shutdown();
+    engine.Run();
 
     return 0;
 }

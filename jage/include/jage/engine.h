@@ -11,9 +11,10 @@ namespace jage
 
         ~Engine() = default;
 
+        void Run();
+    private:
         [[nodiscard]] bool Initialize();
         void Shutdown();
-    private:
         void GetInfo();
 
     private:
