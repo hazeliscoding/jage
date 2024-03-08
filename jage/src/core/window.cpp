@@ -42,4 +42,17 @@ namespace jage::core
 			window_ = nullptr;
 		}
 	}
+
+	void Window::PollEvents()
+	{
+		SDL_Event e;
+		while (SDL_PollEvent(&e))
+		{
+			if (e.type == SDL_QUIT)
+			{
+				SDL_Quit();
+				exit(0);
+			}
+		}
+	}
 }

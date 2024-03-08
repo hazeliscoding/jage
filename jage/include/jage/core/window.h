@@ -12,6 +12,8 @@ namespace jage::core
 
 		bool Create();
 		void Shutdown();
+
+		void PollEvents();
 	private:
 		SDL_Window* window_;
 	};
