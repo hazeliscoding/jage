@@ -145,6 +145,11 @@ project "jageeditor"
             "JAGE_PLATFORM_MACOS"
         }
 
+        links
+        {
+            "SDL2.framework"
+        }
+
     filter {"system:linux", "configurations:*"}
         defines
         {
