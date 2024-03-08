@@ -6,7 +6,24 @@
 
 namespace jage 
 {
-    void GetInfo()
+    Engine* Engine::instance_ = nullptr;
+
+    Engine::Engine()
+    {
+		GetInfo();
+    }
+
+    Engine& Engine::instance()
+    {
+		if (!instance_)
+		{
+			instance_ = new Engine();
+		}
+
+        return *instance_;
+    }
+
+    void Engine::GetInfo()
     {
 #ifdef JAGE_CONFIG_DEBUG
         std::cout << "Configuration: DEBUG" << std::endl;
@@ -25,13 +42,13 @@ namespace jage
 #endif
     }
 
-    bool Initialize()
+    bool Engine::Initialize()
     {
         bool ret = true;
 
 		if (SDL_Init(SDL_INIT_VIDEO) != 0)
 		{
-			std::cerr << "Failed to initialize SDL2: " << SDL_GetError() << '\n';
+			std::cerr << "Failed to Initialize SDL2: " << SDL_GetError() << '\n';
             ret = false;
 		}
         else
@@ -45,7 +62,7 @@ namespace jage
 		return ret;
     }
 
-    void Shutdown()
+    void Engine::Shutdown()
     {
 	    SDL_Quit();
     }

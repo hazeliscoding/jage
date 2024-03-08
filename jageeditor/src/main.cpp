@@ -4,14 +4,9 @@
 
 int main()
 {
-    jage::GetInfo();
-
-    jage::Initialize();
-    jage::Shutdown();
-
-#ifdef JAGE_PLATFORM_WINDOWS
-    system("pause");
-#endif
+    jage::Engine& engine = jage::Engine::instance();
+    engine.Initialize();
+    engine.Shutdown();
 
     return 0;
 }

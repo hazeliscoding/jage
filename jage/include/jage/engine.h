@@ -2,9 +2,20 @@
 
 namespace jage
 {
-    /// @brief Print information about the current configuration and platform.
-    void GetInfo();
+    class Engine
+    {
+    public:
+        static Engine& instance();
 
-    bool Initialize();
-    void Shutdown();
+        ~Engine() = default;
+
+        bool Initialize();
+        void Shutdown();
+    private:
+        void GetInfo();
+
+        Engine();
+
+        static Engine* instance_;
+    };
 }
