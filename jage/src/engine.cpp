@@ -1,4 +1,5 @@
 #include "engine.h"
+#include "log.h"
 
 #include <iostream>
 
@@ -10,8 +11,8 @@ namespace jage
 
     Engine::Engine()
 	    : isRunning_(false)
+		, isInitialized_(false)
     {
-		GetInfo();
     }
 
     Engine& Engine::instance()
@@ -26,20 +27,21 @@ namespace jage
 
     void Engine::GetInfo()
     {
+        JAGE_TRACE("JAGE v{}.{}", 0, 1);
 #ifdef JAGE_CONFIG_DEBUG
-        std::cout << "Configuration: DEBUG" << std::endl;
+        JAGE_DEBUG("Configuration: DEBUG");
 #endif
 #ifdef JAGE_CONFIG_RELEASE
-        std::cout << "Configuration: RELEASE" << std::endl;
+        JAGE_DEBUG("Configuration: RELEASE");
 #endif
 #ifdef JAGE_PLATFORM_WINDOWS
-        std::cout << "Platform: WINDOWS" << std::endl;
+        JAGE_WARN("Platform: WINDOWS");
 #endif
 #ifdef JAGE_PLATFORM_LINUX
-        std::cout << "Platform: LINUX" << std::endl;
+        JAGE_WARN("Platform: LINUX");
 #endif
 #ifdef JAGE_PLATFORM_MAC
-        std::cout << "Platform: MAC" << std::endl;
+        JAGE_WARN("Platform: MAC");
 #endif
     }
 
@@ -61,35 +63,50 @@ namespace jage
     {
         bool ret = false;
 
-		if (SDL_Init(SDL_INIT_VIDEO) != 0)
-		{
-			std::cerr << "Failed to Initialize SDL2: " << SDL_GetError() << '\n';
-		}
-        else
-        {
-            SDL_version version;
-            SDL_VERSION(&version)
-            std::cout << "SDL2 version: " << static_cast<int>(version.major) << '.' << static_cast<int>(version.minor) << '.' << static_cast<int>(version.patch) <<
-                '\n';
+        JAGE_ASSERT(!isInitialized_, "Attempting to call Engine::Initialize() more than once!")
 
-            if (window_.Create())
+        if (!isInitialized_)
+        {
+            logManager_.Initialize();
+            GetInfo();
+
+            if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
             {
-                ret = true;
-                isRunning_ = true;
-			}
+                JAGE_ERROR("Error initializing SDL2: {}", SDL_GetError());
+            }
+            else
+            {
+                SDL_version version;
+                SDL_VERSION(&version)
+                JAGE_INFO("SDL {}.{}.{}", static_cast<int32_t>(version.major), static_cast<int32_t>(version.minor), static_cast<int32_t>(version.patch));
+
+                if (window_.Create())
+                {
+                    ret = true;
+                    isRunning_ = true;
+                    isInitialized_ = true;
+                }
+            }
+
+            if (!ret)
+            {
+                JAGE_ERROR("Engine initialization failed. Shutting down.")
+                Shutdown();
+            }
         }
 
-        if (!ret)
-        {
-	        std::cerr << "Failed to initialize engine. Shutting down..." << '\n';
-            Shutdown();
-        }
-
-		return ret;
+        return ret;
     }
 
     void Engine::Shutdown()
     {
+        isRunning_ = false;
+        isInitialized_ = false;
+
+        // Managers - usually in reverse order
+        logManager_.Shutdown();
+
+        // Shutdown SDL
         window_.Shutdown();
 	    SDL_Quit();
     }

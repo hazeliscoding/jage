@@ -1,6 +1,7 @@
 #pragma once
 
 #include "core/window.h"
+#include "managers/logmanager.h"
 
 namespace jage
 {
@@ -21,10 +22,14 @@ namespace jage
 
     private:
         bool isRunning_;
+        bool isInitialized_;
         core::Window window_;
 
-        Engine();
+        // Managers
+        managers::LogManager logManager_;
 
+        // Singleton
+        Engine();
         static Engine* instance_;
     };
 }

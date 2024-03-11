@@ -1,5 +1,6 @@
 #include "core/window.h"
 #include "engine.h"
+#include "log.h"
 
 #include <iostream>
 
@@ -27,7 +28,7 @@ namespace jage::core
 		window_ = SDL_CreateWindow("JAGE (Just Another Game Engine) v0.1.0", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, 0);
 		if (!window_)
 		{
-			std::cerr << "Failed to create window: " << SDL_GetError() << '\n';
+			JAGE_ERROR("Error creating window: {}", SDL_GetError())
 			ret = false;
 		}
 

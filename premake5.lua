@@ -42,7 +42,8 @@ project "jage"
 
     flags
     {
-        "FatalWarnings"
+        -- TODO: Findout why format.h is causing warnings
+        -- "FatalWarnings"
     }
 
     filter {"system:windows", "configurations:*"}
