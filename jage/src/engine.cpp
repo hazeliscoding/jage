@@ -53,6 +53,9 @@ namespace jage
             while (isRunning_)
             {
                 window_.PollEvents();
+
+                window_.BeginRender();
+                window_.EndRender();
             }
         }
 

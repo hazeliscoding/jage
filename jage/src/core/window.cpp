@@ -26,8 +26,8 @@ namespace jage::core
 	{
 		bool ret = true;
 
-		window_ = SDL_CreateWindow("JAGE (Just Another Game Engine) v0.1.0", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 
-			800, 600, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+		window_ = SDL_CreateWindow("JAGE (Just Another Game Engine) v0.1.0", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, 
+			SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 		if (!window_)
 		{
 			JAGE_ERROR("Error creating window: {}", SDL_GetError())
@@ -53,6 +53,20 @@ namespace jage::core
 		}
 
 		gladLoadGLLoader(SDL_GL_GetProcAddress);
+
+		// TODO: Move this to a renderer initialization
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LEQUAL);
+
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		glClearColor(
+			static_cast<float>(0x64) / static_cast<float>(0xFF),
+			static_cast<float>(0x95) / static_cast<float>(0xFF),
+			static_cast<float>(0xED) / static_cast<float>(0xFF),
+			1
+		);
 
 		return ret;
 	}
@@ -81,5 +95,15 @@ namespace jage::core
 					break;
 			}
 		}
+	}
+
+	void Window::BeginRender()
+	{
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
+
+	void Window::EndRender()
+	{
+		SDL_GL_SwapWindow(window_);
 	}
 }

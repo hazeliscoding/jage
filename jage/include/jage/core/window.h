@@ -15,6 +15,10 @@ namespace jage::core
 		void Shutdown();
 
 		void PollEvents();
+
+		void BeginRender();
+		void EndRender();
+
 	private:
 		SDL_Window* window_;
 		SDL_GLContext glContext_;
