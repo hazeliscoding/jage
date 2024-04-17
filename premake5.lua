@@ -15,6 +15,10 @@ odir = "bin-obj/%{cfg.buildcfg}/%{prj.name}"
 externals = {}
 externals["sdl2"] = "external/sdl2"
 externals["spdlog"] = "external/spdlog"
+externals["glad"] = "external/glad"
+
+-- Process Glad before anything else
+include "external/glad"
 
 project "jage"
     location "jage"
@@ -37,13 +41,19 @@ project "jage"
     {
         "%{prj.name}/include/jage",
         "%{externals.sdl2}/include",
-        "%{externals.spdlog}/include"
+        "%{externals.spdlog}/include",
+        "%{externals.glad}/include"
     }
 
     flags
     {
         -- TODO: Findout why format.h is causing warnings
         -- "FatalWarnings"
+    }
+
+    defines
+    {
+        "GLFW_INCLUDE_NONE" -- Ensures glad doesn't include GLFW
     }
 
     filter {"system:windows", "configurations:*"}
@@ -132,7 +142,8 @@ project "jageeditor"
         links
         {
             "SDL2",
-            "SDL2main"
+            "SDL2main",
+            "glad"
         }
 
     filter {"system:macosx", "configurations:*"}
@@ -149,7 +160,8 @@ project "jageeditor"
 
         links
         {
-            "SDL2.framework"
+            "SDL2.framework",
+            "glad"
         }
 
     filter {"system:linux", "configurations:*"}
@@ -161,7 +173,8 @@ project "jageeditor"
         links 
         {
             "SDL2",
-            "SDL2main"
+            "SDL2main",
+            "glad"
         }
 
     filter "configurations:Debug"
