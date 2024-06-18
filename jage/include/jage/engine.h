@@ -2,6 +2,7 @@
 
 #include "core/window.h"
 #include "managers/logmanager.h"
+#include "managers/rendermanager.h"
 
 namespace jage
 {
@@ -14,19 +15,23 @@ namespace jage
 
         void Run();
 
-        void Quit() { isRunning_ = false; }
+        void Quit() { is_running_ = false; }
+
+        // Managers
+        managers::RenderManager& GetRenderManager() { return render_manager_; }
     private:
         [[nodiscard]] bool Initialize();
         void Shutdown();
         void GetInfo();
 
     private:
-        bool isRunning_;
-        bool isInitialized_;
+        bool is_running_;
+        bool is_initialized_;
         core::Window window_;
 
         // Managers
-        managers::LogManager logManager_;
+        managers::LogManager log_manager_;
+        managers::RenderManager render_manager_;
 
         // Singleton
         Engine();

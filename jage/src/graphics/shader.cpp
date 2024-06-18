@@ -29,7 +29,7 @@ namespace jage::graphics
 			}
 		}
 
-		uint32_t fragmentShaderId = glCreateShader(GL_VERTEX_SHADER);
+		uint32_t fragmentShaderId = glCreateShader(GL_FRAGMENT_SHADER);
 		if (status == GL_TRUE)
 		{
 			const GLchar* glSource = fragment.c_str();
@@ -59,7 +59,7 @@ namespace jage::graphics
 			if (status != GL_TRUE)
 			{
 				glGetProgramInfoLog(programId_, sizeof(errorLog), nullptr, errorLog);
-				JAGE_ERROR("Error link error: {}", errorLog);
+				JAGE_ERROR("Shader link error: {}", errorLog);
 				glDeleteProgram(programId_);
 				programId_ = -1;
 			}
