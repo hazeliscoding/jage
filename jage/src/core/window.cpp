@@ -1,4 +1,5 @@
 #include "core/window.h"
+#include "input/mouse.h"
 #include "engine.h"
 #include "log.h"
 
@@ -84,6 +85,9 @@ namespace jage::core
 					break;
 			}
 		}
+
+		// Update input
+		input::Mouse::Update();
 	}
 
 	void Window::BeginRender()

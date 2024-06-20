@@ -8,6 +8,8 @@
 #include "graphics/mesh.h"
 #include "graphics/shader.h"
 
+#include "input/mouse.h"
+
 namespace jage 
 {
     Engine* Engine::instance_ = nullptr;
@@ -100,6 +102,13 @@ namespace jage
                 {
                     window_.PollEvents();
 
+                    JAGE_TRACE("X: {}, Y: {}, {}{}{}{}", input::Mouse::X(), input::Mouse::Y(),
+                        input::Mouse::Button(JAGE_INPUT_MOUSE_LEFT),
+                        input::Mouse::Button(JAGE_INPUT_MOUSE_MIDDLE),
+                        input::Mouse::Button(JAGE_INPUT_MOUSE_RIGHT),
+                        input::Mouse::Button(JAGE_INPUT_MOUSE_X1),
+                        input::Mouse::Button(JAGE_INPUT_MOUSE_X2))
+
                     window_.BeginRender();
 
                     auto rc = std::make_unique<graphics::rendercommands::RenderMesh>(mesh, shader);
@@ -142,6 +151,8 @@ namespace jage
                     ret = true;
                     is_running_ = true;
                     is_initialized_ = true;
+
+                    input::Mouse::Initialize();
                 }
             }
 
