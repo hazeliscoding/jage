@@ -174,7 +174,8 @@ project "jageeditor"
         {
             "SDL2",
             "SDL2main",
-            "glad"
+            "glad",
+            "dl"
         }
 
     filter "configurations:Debug"
