@@ -1,4 +1,5 @@
 #include "managers/rendermanager.h"
+#include "graphics/helpers.h"
 
 #include "log.h"
 
@@ -24,12 +25,12 @@ namespace jage::managers
 			(const char*)glGetString(GL_VERSION))
 
 		// Enable depth testing to ensure pixels closer to the camera obscure those further away
-		glEnable(GL_DEPTH_TEST);
-		glDepthFunc(GL_LEQUAL);  // Use the less or equal depth test
+		glEnable(GL_DEPTH_TEST); JAGE_CHECK_GL_ERROR
+		glDepthFunc(GL_LEQUAL); JAGE_CHECK_GL_ERROR // Use the less or equal depth test 
 
 		// Enable blending to support alpha transparency
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_BLEND); JAGE_CHECK_GL_ERROR
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); JAGE_CHECK_GL_ERROR
 
 		// Set the initial background color to cornflower blue
 		SetClearColour(
@@ -61,13 +62,13 @@ namespace jage::managers
 		}
 
 		// Clear the color and depth buffer
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); JAGE_CHECK_GL_ERROR
 	}
 
 	void RenderManager::SetClearColour(const float r, const float g, const float b, const float a)
 	{
 		// Set the clear color for OpenGL
-		glClearColor(r, g, b, a);
+		glClearColor(r, g, b, a); JAGE_CHECK_GL_ERROR
 	}
 
 	void RenderManager::SetWireframeMode(const bool enabled)
@@ -76,12 +77,12 @@ namespace jage::managers
 		if (enabled)
 		{
 			// Set mode to wireframe
-			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); JAGE_CHECK_GL_ERROR
 		}
 		else
 		{
 			// Set mode to filled polygons
-			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); JAGE_CHECK_GL_ERROR
 		}
 	}
 
@@ -94,7 +95,7 @@ namespace jage::managers
 	void RenderManager::Flush()
 	{
 		// Execute all render commands in the queue
-		while (render_commands_.size() > 0)
+		while (!render_commands_.empty())
 		{
 			auto rc = std::move(render_commands_.front());  // Move the front command for execution
 			render_commands_.pop();  // Remove the command from the queue

@@ -3,8 +3,10 @@
 
 #include "graphics/mesh.h"
 #include "graphics/shader.h"
+#include "graphics/helpers.h"
 
 #include <glad/glad.h>
+
 
 namespace jage::graphics::rendercommands
 {
@@ -25,12 +27,12 @@ namespace jage::graphics::rendercommands
 			if (mesh->GetElementCount() > 0)
 			{
 				// Perform indexed drawing using element array
-				glDrawElements(GL_TRIANGLES, mesh->GetElementCount(), GL_UNSIGNED_INT, 0);
+				glDrawElements(GL_TRIANGLES, mesh->GetElementCount(), GL_UNSIGNED_INT, 0); JAGE_CHECK_GL_ERROR
 			}
 			else
 			{
 				// Perform non-indexed drawing if no elements are available
-				glDrawArrays(GL_TRIANGLE_STRIP, 0, mesh->GetVertexCount());
+				glDrawArrays(GL_TRIANGLE_STRIP, 0, mesh->GetVertexCount()); JAGE_CHECK_GL_ERROR
 			}
 
 			// Unbind the shader and mesh to clean up and prevent unwanted state changes

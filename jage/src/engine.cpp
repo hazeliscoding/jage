@@ -92,7 +92,7 @@ namespace jage
             std::shared_ptr<graphics::Shader> shader = std::make_shared<graphics::Shader>(vertexShader, fragmentShader);
             shader->SetUniformFloat3("color", 1, 0, 0);
 
-            render_manager_.SetWireframeMode(true);
+            // jage::managers::RenderManager::SetWireframeMode(true);
 
             // Core loop
             while (is_running_)
@@ -120,6 +120,7 @@ namespace jage
 
         if (!is_initialized_)
         {
+            log_manager_.Initialize();
             GetInfo();
 
             if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
@@ -134,9 +135,7 @@ namespace jage
 
                 if (window_.Create())
                 {
-                    // Initialize managers
-                    jage::managers::RenderManager::Initialize();
-                    jage::managers::LogManager::Initialize();
+                    render_manager_.Initialize();
 
                     ret = true;
                     is_running_ = true;

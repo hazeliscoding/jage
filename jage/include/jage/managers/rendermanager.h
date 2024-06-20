@@ -13,12 +13,12 @@ namespace jage::managers
 		RenderManager();
 		~RenderManager();
 
-		static void Initialize();
+		void Initialize();
 		void Shutdown();
 
 		void Clear();
-		static void SetClearColour(float r, float g, float b, float a);
-		static void SetWireframeMode(bool enabled);
+		void SetClearColour(float r, float g, float b, float a);
+		void SetWireframeMode(bool enabled);
 
 		void Submit(std::unique_ptr<graphics::rendercommands::RenderCommand> rc);
 

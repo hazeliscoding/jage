@@ -8,7 +8,7 @@ namespace jage::managers
 		LogManager() = default;
 		~LogManager() = default;
 
-		static void Initialize();
-		static void Shutdown();
+		void Initialize();
+		void Shutdown();
 	};
 }
