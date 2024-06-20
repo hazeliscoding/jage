@@ -24,8 +24,9 @@ namespace jage::graphics
 			}
 
 			JAGE_ERROR("OpenGL Error: {}", errorstr.c_str())
+			JAGE_ASSERT(false, "OpenGL Error!")
+
 			error = glGetError();
 		}
-		JAGE_ASSERT(!shouldAssert, "OpenGL Error!")
 	}
 }

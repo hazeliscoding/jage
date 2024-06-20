@@ -7,15 +7,6 @@
 
 namespace jage::managers
 {
-	RenderManager::RenderManager()
-	{
-
-	}
-
-	RenderManager::~RenderManager()
-	{
-	}
-
 	void RenderManager::Initialize()
 	{
 		// Log OpenGL vendor, renderer, and version information

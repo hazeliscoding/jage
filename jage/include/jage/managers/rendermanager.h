@@ -10,8 +10,8 @@ namespace jage::managers
 	class RenderManager
 	{
 	public:
-		RenderManager();
-		~RenderManager();
+		RenderManager() = default;
+		~RenderManager() = default;
 
 		void Initialize();
 		void Shutdown();

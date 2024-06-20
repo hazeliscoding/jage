@@ -52,23 +52,24 @@ namespace jage
     {
         if (Initialize())
         {
-            // Test Mesh
-            float vertices[]
             {
-                 0.5f,  0.5f, 0.f,
-                 0.5f, -0.5f, 0.f,
-                -0.5f, -0.5f, 0.f,
-                -0.5f,  0.5f, 0.f
-            };
-            uint32_t elements[]
-            {
-                0, 3, 1,
-                1, 3, 2
-            };
-            std::shared_ptr<graphics::Mesh> mesh = std::make_shared<graphics::Mesh>(&vertices[0], 4, 3, &elements[0], 6);
+                // Test Mesh
+                float vertices[]
+                {
+                     0.5f,  0.5f, 0.f,
+                     0.5f, -0.5f, 0.f,
+                    -0.5f, -0.5f, 0.f,
+                    -0.5f,  0.5f, 0.f
+                };
+                uint32_t elements[]
+                {
+                    0, 3, 1,
+                    1, 3, 2
+                };
+                std::shared_ptr<graphics::Mesh> mesh = std::make_shared<graphics::Mesh>(&vertices[0], 4, 3, &elements[0], 6);
 
-            // Test Shader
-            const char* vertexShader = R"(
+                // Test Shader
+                const char* vertexShader = R"(
 				#version 410 core
 				layout (location = 0) in vec3 position;
 				out vec3 vpos;
@@ -79,7 +80,7 @@ namespace jage
 				}
 			)";
 
-            const char* fragmentShader = R"(
+                const char* fragmentShader = R"(
 				#version 410 core
 				out vec4 outColor;
 				in vec3 vpos;
@@ -89,27 +90,28 @@ namespace jage
 					outColor = vec4(vpos, 1.0);
 				}
 			)";
-            std::shared_ptr<graphics::Shader> shader = std::make_shared<graphics::Shader>(vertexShader, fragmentShader);
-            shader->SetUniformFloat3("color", 1, 0, 0);
+                std::shared_ptr<graphics::Shader> shader = std::make_shared<graphics::Shader>(vertexShader, fragmentShader);
+                shader->SetUniformFloat3("color", 1, 0, 0);
 
-            // jage::managers::RenderManager::SetWireframeMode(true);
+                // jage::managers::RenderManager::SetWireframeMode(true);
 
-            // Core loop
-            while (is_running_)
-            {
-                window_.PollEvents();
+                // Core loop
+                while (is_running_)
+                {
+                    window_.PollEvents();
 
-                window_.BeginRender();
+                    window_.BeginRender();
 
-                auto rc = std::make_unique<graphics::rendercommands::RenderMesh>(mesh, shader);
-                render_manager_.Submit(std::move(rc));
-                render_manager_.Flush();
+                    auto rc = std::make_unique<graphics::rendercommands::RenderMesh>(mesh, shader);
+                    render_manager_.Submit(std::move(rc));
+                    render_manager_.Flush();
 
-                window_.EndRender();
+                    window_.EndRender();
+                }
             }
-        }
 
-		Shutdown();
+            Shutdown();
+        }
     }
 
     bool Engine::Initialize()
@@ -160,11 +162,12 @@ namespace jage
 
         // Managers - usually in reverse order
         render_manager_.Shutdown();
-        log_manager_.Shutdown();
 
         // Shutdown SDL
         window_.Shutdown();
 	    SDL_Quit();
+
+        log_manager_.Shutdown();
     }
 
 }
