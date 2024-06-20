@@ -9,6 +9,7 @@
 #include "graphics/shader.h"
 
 #include "input/mouse.h"
+#include "input/keyboard.h"
 
 namespace jage 
 {
@@ -74,10 +75,11 @@ namespace jage
                 const char* vertexShader = R"(
 				#version 410 core
 				layout (location = 0) in vec3 position;
-				out vec3 vpos;
+				out vec3 vpos;  
+				uniform vec2 offset = vec2(0.5);
 				void main()
 				{
-					vpos = position + vec3(0.5, 0.5, 0);
+					vpos = position + vec3(offset, 0);
 					gl_Position = vec4(position, 1.0);
 				}
 			)";
@@ -97,17 +99,32 @@ namespace jage
 
                 // jage::managers::RenderManager::SetWireframeMode(true);
 
+                float xKeyOffset = 0.f;
+                float yKeyOffset = 0.f;
+                float keySpeed = 0.001f;
+
                 // Core loop
                 while (is_running_)
                 {
                     window_.PollEvents();
 
-                    JAGE_TRACE("X: {}, Y: {}, {}{}{}{}", input::Mouse::X(), input::Mouse::Y(),
-                        input::Mouse::Button(JAGE_INPUT_MOUSE_LEFT),
-                        input::Mouse::Button(JAGE_INPUT_MOUSE_MIDDLE),
-                        input::Mouse::Button(JAGE_INPUT_MOUSE_RIGHT),
-                        input::Mouse::Button(JAGE_INPUT_MOUSE_X1),
-                        input::Mouse::Button(JAGE_INPUT_MOUSE_X2))
+                    int windowW = 0;
+                    int windowH = 0;
+
+                    GetWindow().GetSize(windowW, windowH);
+
+                    float xNorm = input::Mouse::X() / static_cast<float>(windowW);
+                    float yNorm = static_cast<float>(windowH - input::Mouse::Y()) / static_cast<float>(windowH);
+
+                    if (input::Keyboard::Key(JAGE_INPUT_KEY_LEFT)) { xKeyOffset -= keySpeed; }
+                    if (input::Keyboard::Key(JAGE_INPUT_KEY_RIGHT)) { xKeyOffset += keySpeed; }
+                    if (input::Keyboard::Key(JAGE_INPUT_KEY_UP)) { yKeyOffset += keySpeed; }
+                    if (input::Keyboard::Key(JAGE_INPUT_KEY_DOWN)) { yKeyOffset -= keySpeed; }
+
+                    if (input::Keyboard::KeyDown(JAGE_INPUT_KEY_LEFT)) { xKeyOffset -= keySpeed * 100; }
+                    if (input::Keyboard::KeyDown(JAGE_INPUT_KEY_RIGHT)) { xKeyOffset += keySpeed * 100; }
+
+                    shader->SetUniformFloat2("offset", xNorm + xKeyOffset, yNorm + yKeyOffset);
 
                     window_.BeginRender();
 
@@ -153,6 +170,7 @@ namespace jage
                     is_initialized_ = true;
 
                     input::Mouse::Initialize();
+                    input::Keyboard::Initialize();
                 }
             }
 

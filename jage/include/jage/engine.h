@@ -17,6 +17,8 @@ namespace jage
 
         void Quit() { is_running_ = false; }
 
+        core::Window& GetWindow() { return window_; }
+
         // Managers
         managers::RenderManager& GetRenderManager() { return render_manager_; }
     private:

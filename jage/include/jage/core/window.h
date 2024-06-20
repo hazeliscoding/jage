@@ -16,6 +16,8 @@ namespace jage::core
 
 		void PollEvents();
 
+		void GetSize(int& w, int& h);
+
 		void BeginRender();
 		void EndRender();
 

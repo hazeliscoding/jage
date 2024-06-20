@@ -1,5 +1,6 @@
 #include "core/window.h"
 #include "input/mouse.h"
+#include "input/keyboard.h"
 #include "engine.h"
 #include "log.h"
 
@@ -55,9 +56,6 @@ namespace jage::core
 
 		gladLoadGLLoader(SDL_GL_GetProcAddress);
 
-		// TODO: Move this to a renderer initialization
-		
-
 		return ret;
 	}
 
@@ -88,6 +86,12 @@ namespace jage::core
 
 		// Update input
 		input::Mouse::Update();
+		input::Keyboard::Update();
+	}
+
+	void Window::GetSize(int& w, int& h)
+	{
+		SDL_GetWindowSize(window_, &w, &h);
 	}
 
 	void Window::BeginRender()
