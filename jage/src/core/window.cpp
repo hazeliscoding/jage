@@ -107,6 +107,7 @@ namespace jage::core
         // Update input states for mouse and keyboard
         input::Mouse::Update();
         input::Keyboard::Update();
+        input::JoyStick::Update();
     }
 
     void Window::GetSize(int& w, int& h) const

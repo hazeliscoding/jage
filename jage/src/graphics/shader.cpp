@@ -1,6 +1,6 @@
-#include "graphics/shader.h"
-#include "graphics/helpers.h"
-#include "log.h"
+#include "jage/graphics/shader.h"
+#include "jage/graphics/helpers.h"
+#include "jage/log.h"
 
 #include <glad/glad.h>
 

@@ -1,7 +1,7 @@
-#include "managers/rendermanager.h"
-#include "graphics/helpers.h"
+#include "jage/managers/rendermanager.h"
+#include "jage/graphics/helpers.h"
 
-#include "log.h"
+#include "jage/log.h"
 
 #include <glad/glad.h>
 

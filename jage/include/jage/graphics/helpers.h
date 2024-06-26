@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "log.h"
+#include "jage/log.h"
 
 #include <string>
 

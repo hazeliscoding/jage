@@ -51,6 +51,8 @@ namespace jage::input
 		static void Shutdown();
 		static void Update();
 
+		static bool IsJoystickAvailable(int joystickId);
+
 		static bool GetButton(int joystick_id, Button button);
 		static bool GetButtonDown(int joystick_id, Button button);
 		static bool GetButtonUp(int joystick_id, Button button);
@@ -62,6 +64,7 @@ namespace jage::input
 	private:
 		struct Controller
 		{
+			int joystick_index = -1;
 			SDL_GameController* gc = nullptr;
 
 			std::array<bool, static_cast<int>(Button::Count)> buttons;
@@ -71,5 +74,6 @@ namespace jage::input
 		};
 
 		static std::unordered_map<int, std::unique_ptr<Controller>> available_joysticks_;
+		static float dead_zone_;
 	};
 }

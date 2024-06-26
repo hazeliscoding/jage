@@ -1,15 +1,16 @@
-#include "engine.h"
-#include "log.h"
+#include "jage/engine.h"
+#include "jage/log.h"
 
 #include <iostream>
 
 #include <sdl2/SDL.h>
 
-#include "graphics/mesh.h"
-#include "graphics/shader.h"
+#include "jage/graphics/mesh.h"
+#include "jage/graphics/shader.h"
 
-#include "input/mouse.h"
-#include "input/keyboard.h"
+#include "jage/input/mouse.h"
+#include "jage/input/keyboard.h"
+#include "jage/input/joystick.h"
 
 namespace jage 
 {
@@ -89,15 +90,14 @@ namespace jage
 				out vec4 outColor;
 				in vec3 vpos;
 				uniform vec3 color = vec3(0.0);
+				uniform float blue = 0.5f;
 				void main()
 				{
-					outColor = vec4(vpos, 1.0);
+					outColor = vec4(vpos.xy, blue, 1.0);
 				}
 			)";
                 std::shared_ptr<graphics::Shader> shader = std::make_shared<graphics::Shader>(vertexShader, fragmentShader);
                 shader->SetUniformFloat3("color", 1, 0, 0);
-
-                // jage::managers::RenderManager::SetWireframeMode(true);
 
                 float xKeyOffset = 0.f;
                 float yKeyOffset = 0.f;
@@ -123,6 +123,17 @@ namespace jage
 
                     if (input::Keyboard::KeyDown(JAGE_INPUT_KEY_LEFT)) { xKeyOffset -= keySpeed * 100; }
                     if (input::Keyboard::KeyDown(JAGE_INPUT_KEY_RIGHT)) { xKeyOffset += keySpeed * 100; }
+
+                    if (input::JoyStick::IsJoystickAvailable(0))
+                    {
+                        if (input::JoyStick::GetButton(0, input::JoyStick::Button::DPAD_Left)) { xKeyOffset -= keySpeed; }
+                        if (input::JoyStick::GetButton(0, input::JoyStick::Button::DPAD_Right)) { xKeyOffset += keySpeed; }
+                        if (input::JoyStick::GetButton(0, input::JoyStick::Button::DPAD_Up)) { yKeyOffset += keySpeed; }
+                        if (input::JoyStick::GetButton(0, input::JoyStick::Button::DPAD_Down)) { yKeyOffset -= keySpeed; }
+
+                        float blue = input::JoyStick::GetAxis(0, input::JoyStick::Axis::LeftTrigger);
+                        shader->SetUniformFloat("blue", blue);
+                    }
 
                     shader->SetUniformFloat2("offset", xNorm + xKeyOffset, yNorm + yKeyOffset);
 
