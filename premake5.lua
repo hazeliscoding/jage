@@ -39,7 +39,7 @@ project "jage"
 
     externalincludedirs
     {
-        "%{prj.name}/include/jage",
+        "%{prj.name}/include",
         "%{externals.sdl2}/include",
         "%{externals.spdlog}/include",
         "%{externals.glad}/include"
