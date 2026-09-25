@@ -1,0 +1,13 @@
+# Normalize to LF everywhere.
+* text=auto eol=lf
+
+# cmd.exe needs CRLF in batch files.
+*.bat text eol=crlf
+
+# Prebuilt binaries.
+*.exe binary
+*.dll binary
+*.lib binary
+*.png binary
+premake/premake5 binary
+premake/premake5.linux binary
