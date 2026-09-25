@@ -53,7 +53,7 @@ Until M0 lands, the last commit only builds with workarounds, on Windows, from a
 
 ## Working style
 
-- **Commits:** [Conventional Commits](https://www.conventionalcommits.org/) (`feat:`, `fix:`, `docs:`, `chore:`, `test:`, `ci:`, `build:`, `refactor:`), atomic, with a scope when it adds clarity (`fix(input): …`, `build(cmake): …`). Commits before 2026 used git-cz with emoji. New commits don't.
+- **Commits:** [Conventional Commits](https://www.conventionalcommits.org/) (`feat:`, `fix:`, `docs:`, `chore:`, `test:`, `ci:`, `build:`, `refactor:`), atomic, with a scope when it adds clarity (`fix(input): …`, `build(cmake): …`). Don't use git-cz (`package.json`), which adds emoji; M1 removes it.
 - **No AI attribution** in commits or PRs. That means no `Co-Authored-By` trailers, no "Generated with" lines and no session links.
 - **Checks:** automate acceptance checks instead of handing manual steps to the owner. Give every check that tests for an absence a positive control. For example, the GL 4.1 guard must fail on a deliberate `glDispatchCompute` call.
 - **Docs:** short and concise. Prefer editing `ROADMAP.md` over creating new planning documents. When the stack changes, update the README, this file and the GitHub topics in the same milestone.

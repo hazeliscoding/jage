@@ -12,6 +12,7 @@ JAGE is a small C++ game engine, revived in 2026 after two dormant years. This f
 - **Credit.** JAGE's code so far is derived from episodes 1 to 11 of progrematic's *Let's Make an Engine* series and its [Hippo](https://github.com/progrematic/hippo) engine (MIT). `LICENSE` keeps progrematic's copyright notice and adds the current one, and the README credits the series.
 - **Brand** is a pixel-art isometric cube in cornflower blue (`#6495ED`), the renderer's default clear colour, with a 5×7 pixel wordmark drawn as rectangles. The assets are in `docs/brand/`, with `-dark` files for dark backgrounds.
 - **Commits** are plain Conventional Commits. git-cz, its emoji and the Node files it needs leave in M1.
+- **History was rewritten** to drop the git-cz emoji from every commit subject and to put every commit under the current author. Code, dates and message text are otherwise unchanged, but every commit hash changed, so clones from before 2026-09-25 need a fresh `git clone` or `git reset --hard origin/main`.
 
 ## M0: Revival (as soon as possible)
 
