@@ -23,3 +23,7 @@ Debug/
 # Other
 node_modules/
 
+# Agent guidelines are committed; this overrides the global gitignore
+!AGENTS.md
+!CLAUDE.md
+
